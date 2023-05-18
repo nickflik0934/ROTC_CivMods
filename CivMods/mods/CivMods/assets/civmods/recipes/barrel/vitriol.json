@@ -1,0 +1,20 @@
+{
+    "code": "civmodsmakevitriol",
+    "ingredients": [
+        {
+            "type": "item",
+            "code": "game:ore-sulfur",
+            "quantity": 2
+        },
+        {
+            "type": "item",
+            "code": "game:waterportion",
+            "litres": 50
+        }
+    ],
+    "output": {
+        "type": "item",
+        "code": "civmods:vitriolportion",
+        "litres": 50
+    }
+}

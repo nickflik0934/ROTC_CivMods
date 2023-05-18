@@ -1,0 +1,11 @@
+[
+    {
+        "op": "add",
+        "path": "/damagedby",
+        "value": [
+            "blockbreaking",
+            "attacking"
+        ],
+        "file": "game:itemtypes/tool/hammer.json"
+    }
+]

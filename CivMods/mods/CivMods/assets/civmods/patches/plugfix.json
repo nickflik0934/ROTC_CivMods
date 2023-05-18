@@ -1,0 +1,21 @@
+[
+    {
+        "op": "replace",
+        "path": "/shapeByType",
+        "value": {
+            "*-down-east": { "base": "civmods:block/quarry/plugandfeather-{type}" },
+            "*-down-west": { "base": "civmods:block/quarry/plugandfeather-{type}" },
+            "*-down-north": { "base": "civmods:block/quarry/plugandfeather-{type}", "rotatey": 90 },
+            "*-down-south": { "base": "civmods:block/quarry/plugandfeather-{type}", "rotatey": 90 },
+            "*-up-east": { "base": "civmods:block/quarry/plugandfeather-{type}", "rotatex": 180 },
+            "*-up-west": { "base": "civmods:block/quarry/plugandfeather-{type}", "rotatex": 180 },
+            "*-up-north": { "base": "civmods:block/quarry/plugandfeather-{type}", "rotatex": 180, "rotatey": 90 },
+            "*-up-south": { "base": "civmods:block/quarry/plugandfeather-{type}", "rotatex": 180, "rotatey": 90 },
+            "*-horizontal-north": { "base": "civmods:block/quarry/plugandfeather-{type}", "rotatex": 90, "rotatey": 90 },
+            "*-horizontal-south": { "base": "civmods:block/quarry/plugandfeather-{type}", "rotatex": -90, "rotatey": 90 },
+            "*-horizontal-east": { "base": "civmods:block/quarry/plugandfeather-{type}", "rotatez": 90 },
+            "*-horizontal-west": { "base": "civmods:block/quarry/plugandfeather-{type}", "rotatez": -90 }
+        },
+        "file": "stonequarry:blocktypes/plugandfeather.json"
+    }
+]

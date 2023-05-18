@@ -1,0 +1,62 @@
+[
+    {
+        "op": "add",
+        "path": "/attributes",
+        "value": {},
+        "file": "game:blocktypes/roofing/slantedroofing.json"
+    },
+    {
+        "op": "add",
+        "path": "/attributes",
+        "value": {},
+        "file": "game:blocktypes/roofing/slantedroofing-inner.json"
+    },
+    {
+        "op": "add",
+        "path": "/attributes",
+        "value": {},
+        "file": "game:blocktypes/roofing/slantedroofingridge.json"
+    },
+    {
+        "op": "add",
+        "path": "/attributes",
+        "value": {},
+        "file": "game:blocktypes/roofing/slantedroofingcorner-outer.json"
+    },
+    {
+        "op": "add",
+        "path": "/attributes",
+        "value": {},
+        "file": "game:blocktypes/roofing/slantedroofingtip.json"
+    },
+    {
+        "op": "add",
+        "path": "/attributes/reinforcable",
+        "value": true,
+        "file": "game:blocktypes/roofing/slantedroofing.json"
+    },
+    {
+        "op": "add",
+        "path": "/attributes/reinforcable",
+        "value": true,
+        "file": "game:blocktypes/roofing/slantedroofing-inner.json"
+    },
+    {
+        "op": "add",
+        "path": "/attributes/reinforcable",
+        "value": true,
+        "file": "game:blocktypes/roofing/slantedroofingridge.json"
+    },
+    {
+        "op": "add",
+        "path": "/attributes/reinforcable",
+        "value": true,
+        "file": "game:blocktypes/roofing/slantedroofingcorner-outer.json"
+    },
+    {
+        "op": "add",
+        "path": "/attributes/reinforcable",
+        "value": true,
+        "file": "game:blocktypes/roofing/slantedroofingtip.json"
+    }
+]

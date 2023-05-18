@@ -1,0 +1,495 @@
+{
+    "code": "plumbandsquarewithtorch",
+    "class": "ItemPlumbAndSquare",
+    "shape": {
+        "base": "item/tool/plumbandsquarewithtorch"
+    },
+    "attributes": {
+        "handbook": {
+            "include": true,
+            "extraSections": [
+                {
+                    "title": "plumbandsquare-handbook-help-title",
+                    "text": "plumbandsquare-handbook-help-text"
+                }
+            ]
+        },
+	    "itemlight": [4, 2, 11]
+    },
+    "creativeinventory": {
+        "general": [
+            "*"
+        ],
+        "items": [
+            "*"
+        ],
+        "tools": [
+            "*"
+        ]
+    },
+    "storageFlags": 257,
+    "particleProperties": [
+        {
+            "__comment": "Ember cubicles",
+            "hsvaColor": [
+                {
+                    "avg": 20,
+                    "var": 20
+                },
+                {
+                    "avg": 255,
+                    "var": 50
+                },
+                {
+                    "avg": 255,
+                    "var": 50
+                },
+                {
+                    "avg": 255,
+                    "var": 0
+                }
+            ],
+            "gravityEffect": {
+                "dist": "invexp",
+                "avg": -0.07,
+                "var": 0.4
+            },
+            "posOffsetByType": {
+                "*-lit-up": [
+                    {
+                        "avg": 0,
+                        "var": 0.1
+                    },
+                    {
+                        "avg": -0.2,
+                        "var": 0
+                    },
+                    {
+                        "avg": 0,
+                        "var": 0.1
+                    }
+                ],
+                "*-lit-north": [
+                    {
+                        "avg": 0,
+                        "var": 0.1
+                    },
+                    {
+                        "avg": -0.23,
+                        "var": 0
+                    },
+                    {
+                        "avg": -0.09,
+                        "var": 0.1
+                    }
+                ],
+                "*-lit-east": [
+                    {
+                        "avg": 0.09,
+                        "var": 0.1
+                    },
+                    {
+                        "avg": -0.23,
+                        "var": 0
+                    },
+                    {
+                        "avg": 0,
+                        "var": 0.1
+                    }
+                ],
+                "*-lit-south": [
+                    {
+                        "avg": 0,
+                        "var": 0.1
+                    },
+                    {
+                        "avg": -0.23,
+                        "var": 0
+                    },
+                    {
+                        "avg": 0.09,
+                        "var": 0.1
+                    }
+                ],
+                "*-lit-west": [
+                    {
+                        "avg": -0.09,
+                        "var": 0.1
+                    },
+                    {
+                        "avg": -0.23,
+                        "var": 0
+                    },
+                    {
+                        "avg": 0,
+                        "var": 0.1
+                    }
+                ]
+            },
+            "velocity": [
+                {
+                    "avg": 0,
+                    "var": 0.15
+                },
+                {
+                    "avg": 0.5,
+                    "var": 0.1
+                },
+                {
+                    "avg": 0,
+                    "var": 0.15
+                }
+            ],
+            "quantity": {
+                "avg": 0.015
+            },
+            "size": {
+                "avg": 0.4,
+                "var": 0
+            },
+            "sizeEvolve": {
+                "transform": "quadratic",
+                "factor": -0.7
+            },
+            "lifeLength": {
+                "avg": 1.5
+            },
+            "vertexFlags": 128,
+            "windAffectednes": 0.2
+        },
+        {
+            "__comment": "Smoke quads",
+            "hsvaColor": [
+                {
+                    "avg": 0,
+                    "var": 0
+                },
+                {
+                    "avg": 0,
+                    "var": 0
+                },
+                {
+                    "avg": 40,
+                    "var": 30
+                },
+                {
+                    "avg": 220,
+                    "var": 50
+                }
+            ],
+            "opacityEvolve": {
+                "transform": "quadratic",
+                "factor": -16
+            },
+            "gravityEffect": {
+                "avg": 0,
+                "var": 0
+            },
+            "posOffsetByType": {
+                "*-lit-up": [
+                    {
+                        "avg": 0,
+                        "var": 0.1
+                    },
+                    {
+                        "avg": -0.2,
+                        "var": 0
+                    },
+                    {
+                        "avg": 0,
+                        "var": 0.1
+                    }
+                ],
+                "*-lit-north": [
+                    {
+                        "avg": 0,
+                        "var": 0.1
+                    },
+                    {
+                        "avg": -0.23,
+                        "var": 0
+                    },
+                    {
+                        "avg": -0.09,
+                        "var": 0.1
+                    }
+                ],
+                "*-lit-east": [
+                    {
+                        "avg": 0.09,
+                        "var": 0.1
+                    },
+                    {
+                        "avg": -0.23,
+                        "var": 0
+                    },
+                    {
+                        "avg": 0,
+                        "var": 0.1
+                    }
+                ],
+                "*-lit-south": [
+                    {
+                        "avg": 0,
+                        "var": 0.1
+                    },
+                    {
+                        "avg": -0.23,
+                        "var": 0
+                    },
+                    {
+                        "avg": 0.09,
+                        "var": 0.1
+                    }
+                ],
+                "*-lit-west": [
+                    {
+                        "avg": -0.09,
+                        "var": 0.1
+                    },
+                    {
+                        "avg": -0.23,
+                        "var": 0
+                    },
+                    {
+                        "avg": 0,
+                        "var": 0.1
+                    }
+                ]
+            },
+            "velocity": [
+                {
+                    "avg": 0,
+                    "var": 0.025
+                },
+                {
+                    "avg": 0.15,
+                    "var": 0.1
+                },
+                {
+                    "avg": 0,
+                    "var": 0.025
+                }
+            ],
+            "quantity": {
+                "avg": 0.05
+            },
+            "size": {
+                "avg": 0.25,
+                "var": 0.05
+            },
+            "sizeEvolve": {
+                "transform": "linear",
+                "factor": 0.5
+            },
+            "particleModel": "Quad",
+            "windAffectednes": 0.7
+        },
+        {
+            "__comment": "Fire quads",
+            "hsvaColor": [
+                {
+                    "avg": 20,
+                    "var": 20
+                },
+                {
+                    "avg": 255,
+                    "var": 50
+                },
+                {
+                    "avg": 255,
+                    "var": 50
+                },
+                {
+                    "avg": 255,
+                    "var": 0
+                }
+            ],
+            "opacityEvolve": {
+                "transform": "quadratic",
+                "factor": -16
+            },
+            "gravityEffect": {
+                "avg": 0,
+                "var": 0
+            },
+            "posOffsetByType": {
+                "*-lit-up": [
+                    {
+                        "avg": 0,
+                        "var": 0.12
+                    },
+                    {
+                        "avg": -0.2,
+                        "var": 0
+                    },
+                    {
+                        "avg": 0,
+                        "var": 0.12
+                    }
+                ],
+                "*-lit-north": [
+                    {
+                        "avg": 0,
+                        "var": 0.12
+                    },
+                    {
+                        "avg": -0.23,
+                        "var": 0
+                    },
+                    {
+                        "avg": -0.09,
+                        "var": 0.12
+                    }
+                ],
+                "*-lit-east": [
+                    {
+                        "avg": 0.09,
+                        "var": 0.12
+                    },
+                    {
+                        "avg": -0.23,
+                        "var": 0
+                    },
+                    {
+                        "avg": 0,
+                        "var": 0.12
+                    }
+                ],
+                "*-lit-south": [
+                    {
+                        "avg": 0,
+                        "var": 0.12
+                    },
+                    {
+                        "avg": -0.23,
+                        "var": 0
+                    },
+                    {
+                        "avg": 0.09,
+                        "var": 0.12
+                    }
+                ],
+                "*-lit-west": [
+                    {
+                        "avg": -0.09,
+                        "var": 0.12
+                    },
+                    {
+                        "avg": -0.23,
+                        "var": 0
+                    },
+                    {
+                        "avg": 0,
+                        "var": 0.12
+                    }
+                ]
+            },
+            "velocity": [
+                {
+                    "avg": 0,
+                    "var": 0.025
+                },
+                {
+                    "avg": 0.18,
+                    "var": 0.07
+                },
+                {
+                    "avg": 0,
+                    "var": 0.025
+                }
+            ],
+            "quantity": {
+                "avg": 0.4
+            },
+            "size": {
+                "avg": 0.25,
+                "var": 0.05
+            },
+            "lifeLength": {
+                "avg": 0.5
+            },
+            "sizeEvolve": {
+                "transform": "linear",
+                "factor": 0.5
+            },
+            "particleModel": "Quad",
+            "vertexFlags": 128,
+            "windAffectednes": 0.7
+        }
+    ],
+    "fpHandTransform": {
+        "translation": {
+            "x": -0.15,
+            "y": -0.12,
+            "z": 0
+        },
+        "rotation": {
+            "x": 4,
+            "y": 90,
+            "z": -30
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.2,
+            "z": 0.5
+        },
+        "scale": 2
+    },
+    "guiTransform": {
+        "translation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "rotation": {
+            "x": -26,
+            "y": -27,
+            "z": 90
+        },
+        "origin": {
+            "x": 0.43,
+            "y": 0.38,
+            "z": 0.6
+        },
+        "scale": 3
+    },
+    "tpHandTransform": {
+        "translation": {
+            "x": -0.9,
+            "y": -0.6,
+            "z": -0.55
+        },
+        "rotation": {
+            "x": 1,
+            "y": 0,
+            "z": -40
+        },
+        "scale": 0.76
+    },
+    "groundTransform": {
+        "translation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "rotation": {
+            "x": 90,
+            "y": 0,
+            "z": 0
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.5,
+            "z": 0.56
+        },
+        "scale": 3.6
+    },
+    "heldSounds": {
+        "idle": "game:held/torch-idle",
+        "equip": "game:held/torch-equip",
+        "unequip": "game:held/torch-unequip",
+        "attack": "game:held/torch-attack"
+    },
+	"lightAbsorption": 0
+}

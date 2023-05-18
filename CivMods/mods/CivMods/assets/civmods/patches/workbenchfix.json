@@ -1,0 +1,35 @@
+[
+    {
+        "op": "replace",
+        "path": "/texturesByType",
+        "value": {
+            "*-north": {
+                "metal": { "base": "workbenchexpansion:block/metal" },
+                "saw": { "base": "civmods:block/sawtexfix" },
+                "oak": { "base": "workbenchexpansion:block/oak-180-rotated"}
+            },
+            "*-east": {
+                "metal": { "base": "workbenchexpansion:block/metal" },
+                "saw": { "base": "civmods:block/sawtexfix" },
+                "oak": { "base": "workbenchexpansion:block/oak-90-rotated"}
+            },
+            "*-south": {
+                "metal": { "base": "workbenchexpansion:block/metal" },
+                "saw": { "base": "civmods:block/sawtexfix" },
+                "oak": { "base": "workbenchexpansion:block/oak-0-rotated"}
+            },
+            "*-west": {
+                "metal": { "base": "workbenchexpansion:block/metal" },
+                "saw": { "base": "civmods:block/sawtexfix" },
+                "oak": { "base": "workbenchexpansion:block/oak-270-rotated"}
+            }
+        },
+        "file": "workbenchexpansion:blocktypes/workbenchextended.json"
+    },
+    {
+        "op": "add",
+        "path": "/renderPass",
+        "value": "OpaqueNoCull",
+        "file": "workbenchexpansion:blocktypes/workbenchextended.json"
+    }
+]

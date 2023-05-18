@@ -1,0 +1,92 @@
+{
+    "code": "acidcontainer",
+    "class": "BlockAcid",
+    "entityClass": "Acid",
+    "attributes": {
+        "fenceConnect": {
+            "north": false,
+            "east": false,
+            "west": false,
+            "south": false
+        }
+    },
+    "creativeinventory": {
+        "general": [
+            "*"
+        ],
+        "decorative": [
+            "*"
+        ]
+    },
+    "blockmaterial": "Wood",
+    "replaceable": 900,
+    "resistance": 1.5,
+    "lightAbsorption": 1,
+    "textures": {
+        "plain2": {
+            "base": "game:block/cloth/linen/plain"
+        },
+		"plain": {
+            "base": "game:block/glass/vintage"
+        },
+		"brine": { 
+            "base": "game:block/liquid/brine"
+        },
+		"brass": {
+            "base": "game:block/metal/plate/brass"
+        }
+    },
+    "shape": {
+        "base": "block/acidblock"
+    },
+    "sidesolidByType": {
+        "*": {
+            "all": false
+        }
+    },
+    "sideopaqueByType": {
+        "*": {
+            "all": false
+        }
+    },
+    "combustibleProps": {
+        "burnTemperature": 600,
+        "burnDuration": 30
+    },
+    "sounds": {
+        "place": "game:block/glass",
+        "hit": "game:block/glass",
+        "break": "game:block/glass",
+        "walk": "game:walk/glass"
+    },
+    "materialDensity": 600,
+    "heldTpIdleAnimation": "holdbothhandslarge",
+    "heldTpUseAnimation": "twohandplaceblock",
+    "tpHandTransform": {
+        "translation": {
+            "x": -1.2,
+            "y": -1.1,
+            "z": -0.8
+        },
+        "rotation": {
+            "x": -2,
+            "y": 25,
+            "z": -78
+        },
+        "scale": 0.37
+    },
+    "particleProperties": [
+        {
+            hsvaColor: [{ avg: 37, var: 0 }, { avg: 148, var: 10 }, { avg: 142, var: 30 },  { avg: 255, var: 0 }],
+            opacityEvolve: { transform: "quadratic", factor: -16 },
+            gravityEffect: { avg: 0.5, var: 0 },
+            posOffset: [ { avg: -0.1, var: 0.2 }, { avg: -1.0, var: 0 }, { avg: -0.1, var: 0.2 }],
+            velocity: [ { avg: 0, var: 0.1 }, { avg: 0, var: 0 }, { avg: 0, var: 0.1 }],
+            quantity: { avg: 0.2 },
+            lifeLength: { avg: 0.33 },
+            size: { avg: 0.4, var: 0.05 },
+            sizeEvolve: { transform: "linear", factor: 0.7 },
+            particleModel: "Cube"
+        },
+    ]
+}

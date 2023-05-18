@@ -1,0 +1,8 @@
+[
+    {
+        "op": "add",
+        "path": "/attributes/reinforcementStrength",
+        "value": 200,
+        "file": "game:itemtypes/resource/mortar.json"
+    }
+]

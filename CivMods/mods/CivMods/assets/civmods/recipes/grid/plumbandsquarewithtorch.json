@@ -1,0 +1,10 @@
+{
+    "ingredientPattern": "TP",
+    "ingredients": {
+        "T": { "type": "block", "code": "game:torch-*-lit-*" },
+        "P": { "type": "item", "code": "game:plumbandsquare" }
+    },
+    "width": 2,
+    "height": 1,
+    "output": { "type": "item", "code": "plumbandsquarewithtorch", "quantity": 1  }
+}

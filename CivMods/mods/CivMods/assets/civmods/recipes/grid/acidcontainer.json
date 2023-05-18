@@ -1,0 +1,29 @@
+{
+    "ingredientPattern": "BBB,BSB,BCB",
+    "ingredients": {
+        "B": {
+            "type": "item",
+            "code": "game:metalplate-brass"
+        },
+        "S": {
+            "type": "block",
+            "code": "game:woodbucket"
+        },
+        "C": {
+            "type": "block",
+            "code": "game:linen-*-down"
+        }
+    },
+    "width": 3,
+    "length": 3,
+    "attributes": {
+        "liquidContainerProps": {
+            "requiresContent": {
+                "type": "item",
+                "code": "civmods:vitriolportion"
+            },
+            "requiresLitres": 10
+        }
+    },
+    "output": { "type": "block", "code": "acidcontainer", "quantity": 1  }
+}

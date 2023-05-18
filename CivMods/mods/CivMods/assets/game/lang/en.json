@@ -1,0 +1,33 @@
+{
+    "itemdesc-bushmeat-raw": "Less nutritious than other meats and tough to chew.",
+    "meal-ingredient-stew-primary-bushmeat-raw": "Bushmeat",
+    "meal-ingredient-stew-secondary-bushmeat-raw": "Bushmeat",
+    "meal-ingredient-stew-primary-bushmeat-cured": "Bushmeat",
+    "meal-ingredient-stew-secondary-bushmeat-cured": "Bushmeat",
+    "meal-ingredient-soup-primary-bushmeat-raw": "Bushmeat",
+    "meal-ingredient-soup-secondary-bushmeat-raw": "Bushmeat",
+    "meal-ingredient-soup-primary-bushmeat-cured": "Bushmeat",
+    "meal-ingredient-soup-secondary-bushmeat-cured": "Bushmeat",
+    
+    "civmods:item-blueprint": "Blueprint",
+    
+    "civmods:item-hedgeclippers-copper": "Copper hedge clippers",
+	"civmods:item-hedgeclippers-tinbronze": "Tin bronze hedge clippers",
+	"civmods:item-hedgeclippers-bismuthbronze": "Bismuth bronze hedge clippers",
+	"civmods:item-hedgeclippers-blackbronze": "Black bronze hedge clippers",
+	"civmods:item-hedgeclippers-gold": "Gold hedge clippers",
+	"civmods:item-hedgeclippers-silver": "Silver hedge clippers",
+	"civmods:item-hedgeclippers-iron": "Iron hedge clippers",
+	"civmods:item-hedgeclippers-meteoriciron": "Meteoric iron hedge clippers",
+	"civmods:item-hedgeclippers-steel": "Steel hedge clippers",
+	"civmods:item-hedgeclippershead-copper": "Copper hedge clipper heads",
+	"civmods:item-hedgeclippershead-tinbronze": "Tin bronze hedge clipper heads",
+	"civmods:item-hedgeclippershead-bismuthbronze": "Bismuth bronze hedge clipper heads",
+	"civmods:item-hedgeclippershead-blackbronze": "Black bronze hedge clipper heads",
+	"civmods:item-hedgeclippershead-gold": "Gold hedge clipper heads",
+	"civmods:item-hedgeclippershead-silver": "Silver hedge clipper heads",
+	"civmods:item-hedgeclippershead-iron": "Iron hedge clipper heads",
+	"civmods:item-hedgeclippershead-meteoriciron": "Meteoric iron hedge clipper heads",
+	"civmods:item-hedgeclippershead-steel": "Steel hedge clipper heads"
+
+}

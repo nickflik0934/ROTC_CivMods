@@ -1,0 +1,150 @@
+{
+    "code": "hedgeclippers",
+    "class": "ItemHedgeClippers",
+    "damagedby": [
+        "blockbreaking",
+        "attacking"
+    ],
+    "tool": "shears",
+    "attributes": {
+        "handbook": {
+            "groupBy": [
+                "hedgeclippers-*"
+            ]
+        },
+        "toolrackTransform": {
+            "translation": {
+                "y": 0.7
+            },
+            "rotation": {
+                "y": 180
+            },
+            "scale": 1.5
+        }
+    },
+    "variantgroups": [
+        {
+            "code": "metal",
+            "states": [
+                "copper",
+                "tinbronze",
+                "bismuthbronze",
+                "blackbronze",
+                "gold",
+                "silver",
+                "iron",
+                "meteoriciron",
+                "steel"
+            ]
+        }
+    ],
+    "shape": {
+        "base": "item/tool/hedgeclippers"
+    },
+    "heldTpHitAnimation": "shears",
+    "textures": {
+        "metal": {
+            "base": "game:block/metal/ingot/{metal}"
+        }
+    },
+    "attackpowerbytype": {
+        "hedgeclippers-copper": 1,
+        "hedgeclippers-gold": 1,
+        "hedgeclippers-silver": 1,
+        "hedgeclippers-bismuthbronze": 1,
+        "hedgeclippers-tinbronze": 1.5,
+        "hedgeclippers-blackbronze": 2.5,
+        "hedgeclippers-iron": 3,
+        "hedgeclippers-meteoriciron": 3.25,
+        "hedgeclippers-steel": 3.5
+    },
+    "durabilitybytype": {
+        "hedgeclippers-gold": 750,
+        "hedgeclippers-silver": 750,
+        "hedgeclippers-copper": 1000,
+        "hedgeclippers-tinbronze": 1750,
+        "hedgeclippers-bismuthbronze": 2000,
+        "hedgeclippers-blackbronze": 2250,
+        "hedgeclippers-iron": 3800,
+        "hedgeclippers-meteoriciron": 4500,
+        "hedgeclippers-steel": 9500
+    },
+    "creativeinventory": {
+        "general": [
+            "*"
+        ],
+        "items": [
+            "*"
+        ],
+        "tools": [
+            "*"
+        ]
+    },
+    "guiTransform": {
+        "translation": {
+            "x": 0.5,
+            "y": 0,
+            "z": 0
+        },
+        "rotation": {
+            "x": -89,
+            "y": 45,
+            "z": 33
+        },
+        "origin": {
+            "x": 0.85,
+            "y": 0.4,
+            "z": 0.48
+        },
+        "scale": 2.5
+    },
+    "fpHandTransform": {
+        "translation": {
+            "x": -0.24,
+            "y": 0.1,
+            "z": 0.1
+        },
+        "rotation": {
+            "x": -35,
+            "y": 15,
+            "z": 90
+        },
+        "scale": 2.45
+    },
+    "groundTransform": {
+        "translation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0,
+            "z": 0.5
+        },
+        "scale": 3.6
+    },
+    "tpHandTransform": {
+        "translation": {
+            "x": -0.9,
+            "y": -0.11,
+            "z": -0.35
+        },
+        "rotation": {
+            "x": -10,
+            "y": 0,
+            "z": -25
+        },
+        "origin": {
+            "x": 0.68,
+            "y": 0,
+            "z": 0.42
+        },
+        "scale": 1
+    }
+}

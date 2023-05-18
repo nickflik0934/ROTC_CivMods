@@ -1,0 +1,56 @@
+[
+    {
+        "op": "add",
+        "path": "/attributes/breathable",
+        "value": true,
+        "file": "game:blocktypes/plant/leaves/bamboo.json"
+    },
+    {
+        "op": "add",
+        "path": "/attributes/breathable",
+        "value": true,
+        "file": "game:blocktypes/plant/leaves/branchy.json"
+    },
+    {
+        "op": "add",
+        "path": "/attributes/breathable",
+        "value": true,
+        "file": "game:blocktypes/plant/leaves/fallen.json"
+    },
+    {
+        "op": "add",
+        "path": "/attributes/breathable",
+        "value": true,
+        "file": "game:blocktypes/plant/leaves/narrow.json"
+    },
+    {
+        "op": "add",
+        "path": "/attributes/breathable",
+        "value": true,
+        "file": "game:blocktypes/plant/normal.json"
+    },
+    {
+        "op": "add",
+        "path": "/attributes/breathable",
+        "value": true,
+        "file": "game:blocktypes/wood/door.json"
+    },
+    {
+        "op": "add",
+        "path": "/attributes/breathable",
+        "value": true,
+        "file": "game:blocktypes/wood/ladder.json"
+    },
+    {
+        "op": "add",
+        "path": "/attributes/breathable",
+        "value": true,
+        "file": "game:blocktypes/wood/trapdoor.json"
+    },
+    {
+        "op": "add",
+        "path": "/attributes/breathable",
+        "value": true,
+        "file": "game:blocktypes/wood/torch.json"
+    }
+]

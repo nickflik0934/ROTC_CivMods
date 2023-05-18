@@ -1,0 +1,8 @@
+[
+    {
+        "op": "add",
+        "path": "/renderPass",
+        "value": "OpaqueNoCull",
+        "file": "medievalexpansion:blocktypes/liquid/grasicemixpile.json"
+    }
+]

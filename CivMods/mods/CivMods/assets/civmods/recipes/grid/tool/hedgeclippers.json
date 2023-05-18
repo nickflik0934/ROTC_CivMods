@@ -1,0 +1,21 @@
+{
+    "ingredientPattern": "T ,SS",
+    "ingredients": {
+        "T": {
+            "type": "item",
+            "code": "hedgeclippershead-*",
+            "name": "metal"
+        },
+        "S": {
+            "type": "item",
+            "code": "game:stick"
+        }
+    },
+    "width": 2,
+    "height": 2,
+    "output": {
+        "type": "item",
+        "code": "hedgeclippers-{metal}",
+        "quantity": 1
+    }
+}

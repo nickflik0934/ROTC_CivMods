@@ -1,0 +1,42 @@
+[
+    {
+        "op": "add",
+        "path": "/ingredients/0/validStacks/-",
+        "value": {
+            "type": "item",
+            "code": "bushmeat-raw",
+            "shapeElement": "bowl/meat stew/*"
+        },
+        "file": "game:recipes/cooking/meatystew.json"
+    },
+    {
+        "op": "add",
+        "path": "/ingredients/0/validStacks/-",
+        "value": {
+            "type": "item",
+            "code": "bushmeat-cured",
+            "shapeElement": "bowl/meat stew/*"
+        },
+        "file": "game:recipes/cooking/meatystew.json"
+    },
+    {
+        "op": "add",
+        "path": "/ingredients/4/validStacks/-",
+        "value": {
+            "type": "item",
+            "code": "bushmeat-raw",
+            "shapeElement": "bowl/meat/*"
+        },
+        "file": "game:recipes/cooking/soup.json"
+    },
+    {
+        "op": "add",
+        "path": "/ingredients/4/validStacks/-",
+        "value": {
+            "type": "item",
+            "code": "bushmeat-cured",
+            "shapeElement": "bowl/meat/*"
+        },
+        "file": "game:recipes/cooking/soup.json"
+    }
+]

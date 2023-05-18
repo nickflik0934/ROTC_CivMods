@@ -1,0 +1,228 @@
+{
+    "code": "placedfruittreeleaves",
+    "class": "BlockLeaves",
+    "attributes": {
+        "handbook": {
+            "groupBy": [
+                "placedfruittreeleaves*"
+            ]
+        }
+    },
+    "behaviors": [
+		{
+			"name": "OmniRotatable",
+			"properties": {
+				"rotateSides": true
+			}
+		}
+    ],
+    "variantgroups": [
+        {
+            "code": "state",
+            "states": [
+                "s",
+                "sl",
+                "slb",
+                "l",
+                "lb"
+            ]
+        },
+        {
+            "code": "type",
+            "states": [
+                "placed"
+            ]
+        },
+        {
+            "code": "fruit",
+            "states": [
+                "pinkapple",
+                "redapple",
+                "yellowapple",
+                "cherry",
+                "mango",
+                "olive",
+                "orange",
+                "peach",
+                "pear",
+                "breadfruit",
+                "lychee",
+                "pomegranate"
+            ]
+        },
+        { "code": "rot", "states": [ "north", "east", "south", "west", "up", "down" ] }
+    ],
+    "creativeinventory": {
+        "general": [
+            "*-up"
+        ],
+        "flora": [
+            "*-up"
+        ]
+    },
+    "shape": {
+        "base": "game:block/plant/fruittree/leaves-ver",
+        "rotateXByType": {
+            "*-north": 90,
+            "*-east": 0,
+            "*-south": -90,
+            "*-west": 0,
+            "*-up": 180,
+            "*-down": 0
+        },
+        "rotateZByType":{
+            "*-north": 0,
+            "*-east": 90,
+            "*-south": 0,
+            "*-west": -90,
+            "*-up": 0,
+            "*-down": 0
+        },
+        "__unused": {
+            "alternatesByType": {
+                "*-north":
+                [
+                    { "rotateZ": 10 },
+                    { "rotateZ": 70 },
+                    { "rotateZ": 130 },
+                    { "rotateZ": 190 },
+                    { "rotateZ": 250 },
+                    { "rotateZ": 310 }
+                ],
+                "*-east":
+                [
+                    { "rotateX": 10 },
+                    { "rotateX": 70 },
+                    { "rotateX": 130 },
+                    { "rotateX": 190 },
+                    { "rotateX": 250 },
+                    { "rotateX": 310 }
+                ],
+                "*-south":
+                [
+                    { "rotateZ": 10 },
+                    { "rotateZ": 70 },
+                    { "rotateZ": 130 },
+                    { "rotateZ": 190 },
+                    { "rotateZ": 250 },
+                    { "rotateZ": 310 }
+                ],
+                "*-west":
+                [
+                    { "rotateX": 10 },
+                    { "rotateX": 70 },
+                    { "rotateX": 130 },
+                    { "rotateX": 190 },
+                    { "rotateX": 250 },
+                    { "rotateX": 310 }
+                ],
+                "*-up":
+                [
+                    { "rotateY": 10 },
+                    { "rotateY": 70 },
+                    { "rotateY": 130 },
+                    { "rotateY": 190 },
+                    { "rotateY": 250 },
+                    { "rotateY": 310 }
+                ],
+                "*-down":
+                [
+                    { "rotateY": 10 },
+                    { "rotateY": 70 },
+                    { "rotateY": 130 },
+                    { "rotateY": 190 },
+                    { "rotateY": 250 },
+                    { "rotateY": 310 }
+                ]
+            }
+        }
+    },
+    "textures": {
+        "sticks1":
+        {
+            "baseByType": {
+                "*-s-*": "game:block/plant/fruittree/sticks1",
+                "*-sl-*": "game:block/plant/fruittree/sticks1",
+                "*-slb-*": "game:block/plant/fruittree/sticks1",
+                "*-l-*": "game:block/transparent",
+                "*-lb-*": "game:block/transparent"
+            }
+        },
+        "smallleaves":
+        {
+            "baseByType": {
+                "*-sl-*": "game:block/plant/fruittree/{fruit}/leaves",
+                "*-slb-*": "game:block/plant/fruittree/{fruit}/leaves",
+                "*-l-*": "game:block/plant/fruittree/{fruit}/leaves",
+                "*-lb-*": "game:block/plant/fruittree/{fruit}/leaves",
+                "*-s-*": "game:block/transparent"
+            }
+        },
+        "largeleaves":
+        {
+            "baseByType": {
+                "*-sl-*": "game:block/plant/fruittree/{fruit}/largeleaves",
+                "*-slb-*": "game:block/plant/fruittree/{fruit}/largeleaves",
+                "*-l-*": "game:block/plant/fruittree/{fruit}/largeleaves",
+                "*-lb-*": "game:block/plant/fruittree/{fruit}/largeleaves",
+                "*-s-*": "game:block/transparent"
+            }
+        },
+        "blossom":
+        {
+            "baseByType": {
+                "*-slb-*": "game:block/plant/fruittree/{fruit}/blossom",
+                "*-lb-*": "game:block/plant/fruittree/{fruit}/blossom",
+                "*-sl-*": "game:block/transparent",
+                "*-l-*": "game:block/transparent",
+                "*-s-*": "game:block/transparent"
+            }
+        },
+        "largeblossom":
+        {
+            "baseByType": {
+                "*-slb-*": "game:block/plant/fruittree/{fruit}/largeblossom",
+                "*-lb-*": "game:block/plant/fruittree/{fruit}/largeblossom",
+                "*-sl-*": "game:block/transparent",
+                "*-l-*": "game:block/transparent",
+                "*-s-*": "game:block/transparent" 
+            }
+        }
+    },
+    "renderpass": "OpaqueNoCull",
+    "faceCullMode": "CollapseMaterial",
+    "blockmaterial": "Leaves",
+    "vertexFlags": {
+        "zOffset": 4
+    },
+    "sideopaque": {
+        "all": false
+    },
+    "sidesolid": {
+        "all": false
+    },
+    "sideao": {
+        "all": true
+    },
+    "emitSideAo": {
+        "all": false
+    },
+    "snowCoverage": true,
+    "replaceable": 4000,
+    "lightAbsorption": 1,
+    "resistance": 0.5,
+    "collisionbox": null,
+    "drops": [],
+    "sounds": {
+        "break": "game:block/plant",
+        "place": "game:block/plant",
+        "hit": "game:block/plant",
+        "walk": "game:walk/grass"
+    },
+    "combustibleProps": {
+        "burnTemperature": 600,
+        "burnDuration": 10
+    },
+    "materialDensity": 300,
+    "frostable": true
+}

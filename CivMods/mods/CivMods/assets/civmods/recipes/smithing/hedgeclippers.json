@@ -1,0 +1,30 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-*",
+        "name": "metal",
+        "allowedVariants": [
+            "copper",
+            "tinbronze",
+            "bismuthbronze",
+            "blackbronze",
+            "silver",
+            "gold",
+            "iron",
+            "meteoriciron",
+            "steel"
+        ]
+    },
+    "pattern": [
+        [
+            "###########",
+            "#__________",
+            "###########"
+        ]
+    ],
+    "name": "Hedge Clippers",
+    "output": {
+        "type": "item",
+        "code": "hedgeclippershead-{metal}"
+    }
+}
