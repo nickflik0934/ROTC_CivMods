@@ -1,6 +1,8 @@
-﻿using System;
+﻿using csvorbis;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -101,7 +103,7 @@ namespace CivMods
                     {
                         if (e.PlayerUID == OwnerUID || OwnerUID == null || OwnerUID == "") return false;
 
-                        if (!InSnitchableGroup(e as IServerPlayer)) return false;
+                        if (!IsInSnitchableGroup(e as IServerPlayer)) return false;
 
                         intruders.Add(e);
                         return true;
@@ -134,9 +136,13 @@ namespace CivMods
         {
             Api.World.FrameProfiler.Mark("snitch-notify-break-pre");
 
-            if (!InSnitchableGroup(byPlayer)) return;
+            if (!IsInSnitchableGroup(byPlayer)) return;
 
-            Infractions.Add(new Infraction(byPlayer.PlayerUID, byPlayer.PlayerName, EnumInfraction.Break, new int3(pos.X, pos.Y, pos.Z), DateTime.UtcNow, oldblockId, successful));
+            Infraction inf = new Infraction(byPlayer.PlayerUID, byPlayer.PlayerName, EnumInfraction.Break, new int3(pos.X, pos.Y, pos.Z), DateTime.UtcNow, oldblockId, successful);
+
+            Infractions.Add(inf);
+
+            Owner.SendMessage(GlobalConstants.InfoLogChatGroup, "Breakins:\n" + inf.GetInfString(Api.World), EnumChatType.Notification);
 
             Api.World.FrameProfiler.Mark("snitch-notify-break-done");
         }
@@ -145,10 +151,14 @@ namespace CivMods
         {
             Api.World.FrameProfiler.Mark("snitch-notify-use-pre");
 
-            if (!InSnitchableGroup(byPlayer)) return;
+            if (!IsInSnitchableGroup(byPlayer)) return;
 
-            Infractions.Add(new Infraction(byPlayer.PlayerUID, byPlayer.PlayerName, EnumInfraction.Use, new int3(pos.X, pos.Y, pos.Z), DateTime.UtcNow, blockId, successful));
-            
+            Infraction inf = new Infraction(byPlayer.PlayerUID, byPlayer.PlayerName, EnumInfraction.Use, new int3(pos.X, pos.Y, pos.Z), DateTime.UtcNow, blockId, successful);
+
+            Infractions.Add(inf);
+
+            Owner.SendMessage(GlobalConstants.InfoLogChatGroup, "Attempting to access:\n" + inf.GetInfString(Api.World), EnumChatType.Notification);
+
             Api.World.FrameProfiler.Mark("snitch-notify-use-done");
         }
 
@@ -156,11 +166,15 @@ namespace CivMods
         {
             Api.World.FrameProfiler.Mark("snitch-notify-place-pre");
 
-            if (!InSnitchableGroup(byPlayer)) return;
+            if (!IsInSnitchableGroup(byPlayer)) return;
 
             int tryPlaceID = byPlayer?.InventoryManager?.ActiveHotbarSlot?.Itemstack?.Block?.Id ?? 0;
 
-            Infractions.Add(new Infraction(byPlayer.PlayerUID, byPlayer.PlayerName, EnumInfraction.Place, new int3(pos.X, pos.Y, pos.Z), DateTime.UtcNow, tryPlaceID, successful));
+            Infraction inf = new Infraction(byPlayer.PlayerUID, byPlayer.PlayerName, EnumInfraction.Place, new int3(pos.X, pos.Y, pos.Z), DateTime.UtcNow, tryPlaceID, successful);
+
+            Infractions.Add(inf);
+
+            Owner.SendMessage(GlobalConstants.InfoLogChatGroup, "Building:\n" + inf.GetInfString(Api.World), EnumChatType.Notification);
 
             Api.World.FrameProfiler.Mark("snitch-notify-place-done");
         }
@@ -169,7 +183,7 @@ namespace CivMods
         {
             Api.World.FrameProfiler.Mark("snitch-notify-attack-pre");
 
-            if (!InSnitchableGroup(byPlayer)) return;
+            if (!IsInSnitchableGroup(byPlayer)) return;
 
             Infractions.Add(new Infraction(byPlayer.PlayerUID, byPlayer.PlayerName, EnumInfraction.Attack, new int3(pos.X, pos.Y, pos.Z), DateTime.UtcNow, entityId, successful));
 
@@ -180,29 +194,35 @@ namespace CivMods
         {
             Api.World.FrameProfiler.Mark("snitch-notify-interact-pre");
             
-            if (!InSnitchableGroup(byPlayer)) return;
+            if (!IsInSnitchableGroup(byPlayer)) return;
 
-            Infractions.Add(new Infraction(byPlayer.PlayerUID, byPlayer.PlayerName, EnumInfraction.Interact, new int3(pos.X, pos.Y, pos.Z), DateTime.UtcNow, entityId, successful));
-            
+            Infraction inf = new Infraction(byPlayer.PlayerUID, byPlayer.PlayerName, EnumInfraction.Interact, new int3(pos.X, pos.Y, pos.Z), DateTime.UtcNow, entityId, successful);
+
+            Infractions.Add(inf);
+
+            Owner.SendMessage(GlobalConstants.InfoLogChatGroup, "Attempting to access:\n" + inf.GetInfString(Api.World), EnumChatType.Notification);
+
             Api.World.FrameProfiler.Mark("snitch-notify-interact-done");
         }
 
-        public bool InSnitchableGroup(IServerPlayer byPlayer)
+        public bool IsInSnitchableGroup(IServerPlayer byPlayer)
         {
-            if (byPlayer.PlayerUID == OwnerUID) return false;
+            if (byPlayer.PlayerUID == OwnerUID)
+            {
+                return false;
+            }
 
             var ownerGroups = Owner?.GetGroups();
-            var grps = ownerGroups?.Where((a) => a.GroupName != "Proximity").ToList();
+            var nonProximityGroups = ownerGroups?
+                .Where(group => group.GroupName != "Proximity")
+                .Select(group => group.GroupUid)
+                .ToList();
 
-            if (Mode == EnumSnitchMode.NonGroup && grps != null)
+            if (Mode == EnumSnitchMode.NonGroup && nonProximityGroups != null)
             {
-                foreach (var group in byPlayer.GetGroups())
-                {
-                    foreach (var ownerGroup in grps)
-                    {
-                        if (group.GroupUid == ownerGroup.GroupUid) return false;
-                    }
-                }
+                return !byPlayer.GetGroups()
+                    .Select(group => group.GroupUid)
+                    .Any(groupUid => nonProximityGroups.Contains(groupUid));
             }
 
             return true;

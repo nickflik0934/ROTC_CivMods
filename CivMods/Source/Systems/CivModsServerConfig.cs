@@ -13,18 +13,23 @@ namespace CivMods
     {
         private ICoreServerAPI sapi;
 
-        [JsonProperty]
-        private float suffocateRateLight = 0.01f;
+        //[JsonProperty]
+        //private float suffocateRateLight = 0.01f;
 
-        [JsonProperty]
-        private float suffocateRateHeavy = 2.00f;
+        //[JsonProperty]
+        //private float suffocateRateHeavy = 2.00f;
 
-        [JsonProperty]
-        private float breathRate = 0.25f;
+        //[JsonProperty]
+        //private float breathRate = 0.25f;
 
         [JsonProperty]
         private IPBan[] ipBans = new IPBan[0];
 
+        [JsonProperty]
+        private int ottTimeout = 120;
+
+        [JsonProperty]
+        private OTTUse[] ottUsed = new OTTUse[0];
         /*
         [JsonProperty]
         private bool dummySlotDamagePatch = false;
@@ -43,23 +48,23 @@ namespace CivMods
             sapi.ModLoader.GetModSystem<HarmonyPatcher>().RePatch(sapi);
         }
 
-        public float SuffocateRateLight
-        {
-            get { Load(); return suffocateRateLight; }
-            set { suffocateRateLight = value; Save(); }
-        }
+        //public float SuffocateRateLight
+        //{
+        //    get { Load(); return suffocateRateLight; }
+        //    set { suffocateRateLight = value; Save(); }
+        //}
 
-        public float SuffocateRateHeavy
-        {
-            get { Load(); return suffocateRateHeavy; }
-            set { suffocateRateLight = value; Save(); }
-        }
+        //public float SuffocateRateHeavy
+        //{
+        //    get { Load(); return suffocateRateHeavy; }
+        //    set { suffocateRateLight = value; Save(); }
+        //}
 
-        public float BreathRate
-        {
-            get { Load(); return breathRate; }
-            set { breathRate = value; Save(); }
-        }
+        //public float BreathRate
+        //{
+        //    get { Load(); return breathRate; }
+        //    set { breathRate = value; Save(); }
+        //}
 
         public IPBan[] IPBans
         {
@@ -81,6 +86,18 @@ namespace CivMods
             set { classChangeDelayInDays = value; Save(); }
         }
 
+        public int OTTTimeout
+        {
+            get { Load(); return ottTimeout; }
+            set { ottTimeout = value; Save(); }
+        }
+
+        public OTTUse[] OTTUsed
+        {
+            get { Load(); return ottUsed; }
+            set { ottUsed = value; Save(); }
+        }
+
         public void Save()
         {
             sapi?.StoreModConfig(this, "civmods/server.json");
@@ -92,11 +109,10 @@ namespace CivMods
             {
                 var conf = sapi?.LoadModConfig<CivModsServerConfig>("civmods/server.json") ?? new CivModsServerConfig();
 
-                suffocateRateLight = conf.suffocateRateLight;
-                suffocateRateHeavy = conf.suffocateRateHeavy;
-                breathRate = conf.breathRate;
                 ipBans = conf.ipBans;
                 classChangeDelayInDays = conf.classChangeDelayInDays;
+                ottTimeout = conf.ottTimeout;
+                ottUsed = conf.ottUsed;
 
                 /*
                 if (dummySlotDamagePatch != conf.dummySlotDamagePatch)
@@ -105,7 +121,7 @@ namespace CivMods
                     sapi?.ModLoader.GetModSystem<HarmonyPatcher>().RePatch(sapi);
                 }
                 */
-                
+
             }
             catch (Exception ex)
             {

@@ -114,17 +114,17 @@
         },
         "file": "game:blocktypes/wood/woodtyped/plankstairs.json"
     },
-    {
-        "op": "add",
-        "path": "/behaviors/0",
-        "value": {
-            "name": "UnbreakableByTier",
-            "properties": {
-                "MiningTier": 1
-            }
-        },
-        "file": "game:blocktypes/wood/stackedbamboo.json"
-    },
+    //{
+    //    "op": "add",
+    //    "path": "/behaviors/0",
+    //    "value": {
+    //        "name": "UnbreakableByTier",
+    //        "properties": {
+    //            "MiningTier": 1
+    //        }
+    //    },
+    //    "file": "game:blocktypes/wood/stackedbamboo.json"
+    //},
     {
         "op": "add",
         "path": "/behaviors/0",
@@ -147,19 +147,19 @@
         },
         "file": "game:blocktypes/wood/barrel.json"
     },
-    {
-        "op": "add",
-        "path": "/behaviors",
-        "value": [
-            {
-                "name": "UnbreakableByTier",
-                "properties": {
-                    "MiningTier": 1
-                }
-            }
-        ],
-        "file": "game:blocktypes/wood/bed.json"
-    },
+    //{
+    //    "op": "add",
+    //    "path": "/behaviors",
+    //    "value": [
+    //        {
+    //            "name": "UnbreakableByTier",
+    //            "properties": {
+    //                "MiningTier": 1
+    //            }
+    //        }
+    //    ],
+    //    "file": "game:blocktypes/wood/bed.json"
+    //},
     {
         "op": "add",
         "path": "/behaviors/0",
@@ -444,28 +444,28 @@
         },
         "file": "game:blocktypes/stone/crystal.json"
     },
-    {
-        "op": "add",
-        "path": "/behaviors/0",
-        "value": {
-            "name": "UnbreakableByTier",
-            "properties": {
-                "MiningTier": 0
-            }
-        },
-        "file": "game:blocktypes/stone/gravel.json"
-    },
-    {
-        "op": "add",
-        "path": "/behaviors/0",
-        "value": {
-            "name": "UnbreakableByTier",
-            "properties": {
-                "MiningTier": 0
-            }
-        },
-        "file": "game:blocktypes/stone/gravel-layered.json"
-    },
+    //{
+    //    "op": "add",
+    //    "path": "/behaviors/0",
+    //    "value": {
+    //        "name": "UnbreakableByTier",
+    //        "properties": {
+    //            "MiningTier": 0
+    //        }
+    //    },
+    //    "file": "game:blocktypes/stone/gravel.json"
+    //},
+    //{
+    //    "op": "add",
+    //    "path": "/behaviors/0",
+    //    "value": {
+    //        "name": "UnbreakableByTier",
+    //        "properties": {
+    //            "MiningTier": 0
+    //        }
+    //    },
+    //    "file": "game:blocktypes/stone/gravel-layered.json"
+    //},
     {
         "op": "add",
         "path": "/behaviors/0",
@@ -591,28 +591,28 @@
         },
         "file": "game:blocktypes/stone/rock.json"
     },
-    {
-        "op": "add",
-        "path": "/behaviors/0",
-        "value": {
-            "name": "UnbreakableByTier",
-            "properties": {
-                "MiningTier": 0
-            }
-        },
-        "file": "game:blocktypes/stone/sand.json"
-    },
-    {
-        "op": "add",
-        "path": "/behaviors/0",
-        "value": {
-            "name": "UnbreakableByTier",
-            "properties": {
-                "MiningTier": 0
-            }
-        },
-        "file": "game:blocktypes/stone/sand-layered.json"
-    },
+    //{
+    //    "op": "add",
+    //    "path": "/behaviors/0",
+    //    "value": {
+    //        "name": "UnbreakableByTier",
+    //        "properties": {
+    //            "MiningTier": 0
+    //        }
+    //    },
+    //    "file": "game:blocktypes/stone/sand.json"
+    //},
+    //{
+    //    "op": "add",
+    //    "path": "/behaviors/0",
+    //    "value": {
+    //        "name": "UnbreakableByTier",
+    //        "properties": {
+    //            "MiningTier": 0
+    //        }
+    //    },
+    //    "file": "game:blocktypes/stone/sand-layered.json"
+    //},
     {
         "op": "add",
         "path": "/behaviors",

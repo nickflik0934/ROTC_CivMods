@@ -1,0 +1,16 @@
+[
+  {
+    "op": "add",
+    "path": "/behaviors",
+    "value": [],
+    "file": "game:blocktypes/plant/seaweed.json"
+  },
+  {
+    "op": "add",
+    "path": "/behaviors/0",
+    "value": {
+      "name": "Delete"
+    },
+    "file": "game:blocktypes/plant/seaweed.json"
+  }
+]

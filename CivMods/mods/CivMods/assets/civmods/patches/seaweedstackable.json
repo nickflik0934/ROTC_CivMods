@@ -1,29 +1,29 @@
 [
-    {
-        "op": "replace",
-        "path": "/class",
-        "value": "BlockStackableUnderwater",
-        "file": "game:blocktypes/plant/seaweed.json"
-    },
-    {
-        "op": "add",
-        "path": "/attributes",
-        "value": {},
-        "file": "game:blocktypes/plant/seaweed.json"
-    },
-    {
-        "op": "add",
-        "path": "/attributes/UnderWaterGenProps",
-        "value": {
-            "MinDepth": 1,
-            "MaxDepth": 64,
-            "MaxSections": 10,
-            "Dampening": 0.5,
-            "LiquidCode": "water",
-            "TopSection": "game:seaweed-top",
-            "MiddleSection": "game:seaweed-section",
-            "BottomSection": "game:seaweed-section"
-        },
-        "file": "game:blocktypes/plant/seaweed.json"
-    }
+    //{
+    //    "op": "replace",
+    //    "path": "/class",
+    //    "value": "BlockStackableUnderwater",
+    //    "file": "game:blocktypes/plant/seaweed.json"
+    //},
+    //{
+    //    "op": "add",
+    //    "path": "/attributes",
+    //    "value": {},
+    //    "file": "game:blocktypes/plant/seaweed.json"
+    //},
+    //{
+    //    "op": "add",
+    //    "path": "/attributes/UnderWaterGenProps",
+    //    "value": {
+    //        "MinDepth": 1,
+    //        "MaxDepth": 64,
+    //        "MaxSections": 10,
+    //        "Dampening": 0.5,
+    //        "LiquidCode": "water",
+    //        "TopSection": "game:seaweed-top",
+    //        "MiddleSection": "game:seaweed-section",
+    //        "BottomSection": "game:seaweed-section"
+    //    },
+    //    "file": "game:blocktypes/plant/seaweed.json"
+    //}
 ]

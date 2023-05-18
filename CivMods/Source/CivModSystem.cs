@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using Microsoft.SqlServer.Server;
 using ProtoBuf;
 using System;
 using System.Collections.Concurrent;
@@ -105,6 +106,7 @@ namespace CivMods
         private ICoreClientAPI capi;
 
         private IPBan[] IPBans { get => serverConfig.IPBans; set => serverConfig.IPBans = value; }
+        private OTTUse[] OTTUsed { get => serverConfig.OTTUsed; set => serverConfig.OTTUsed = value; }
 
         public static CivModsServerConfig serverConfig;
 
@@ -113,7 +115,7 @@ namespace CivMods
             this.api = api;
             sapi = api as ICoreServerAPI;
             capi = api as ICoreClientAPI;
-            
+
             api.RegisterBlockClass("BlockSnitch", typeof(BlockSnitch));
             api.RegisterBlockClass("BlockStackableUnderwater", typeof(BlockStackableUnderwater));
             api.RegisterBlockClass("BlockAcid", typeof(BlockAcid));
@@ -122,7 +124,7 @@ namespace CivMods
             api.RegisterItemClass("ItemBlueprint", typeof(ItemBlueprint));
             api.RegisterItemClass("ItemHedgeClippers", typeof(ItemHedgeClippers));
             api.RegisterBlockBehaviorClass("UnbreakableByTier", typeof(BlockBehaviorUnbreakableByTier));
-            api.RegisterEntityBehaviorClass("suffocation", typeof(EntityBehaviorSuffocate));
+            //api.RegisterEntityBehaviorClass("suffocation", typeof(EntityBehaviorSuffocate));
         }
 
         public override void StartClientSide(ICoreClientAPI api)
@@ -130,7 +132,7 @@ namespace CivMods
             api.Event.LevelFinalize += () => RemovePlayerMapLayers();
 
             SnitchInitClient(api);
-            AirBarInitClient(api);
+            //AirBarInitClient(api);
         }
 
         public override void StartServerSide(ICoreServerAPI api)
@@ -140,6 +142,7 @@ namespace CivMods
             InitDebugCommandsServer(api);
             InitSnitchCommandsServer(api);
             InitCmdIPBan(api);
+            InitCmdOTT(api);
         }
 
         public void ServerConfigInit(ICoreServerAPI api)
@@ -168,6 +171,196 @@ namespace CivMods
                     e.GetBehavior<EntityBehaviorNameTag>().ShowOnlyWhenTargeted = true;
                 }
             };
+        }
+
+
+        struct ottRequest
+        {
+            public IServerPlayer requester;
+            public IServerPlayer recipient;
+            public DateTime requestTime;
+
+            public ottRequest(IServerPlayer requester, IServerPlayer recipient)
+            {
+                this.requester = requester;
+                this.recipient = recipient;
+                this.requestTime = DateTime.UtcNow;
+            }
+        }
+
+        List<ottRequest> requests = new List<ottRequest>();
+
+        internal void acceptOrDenyTeleport(ICoreServerAPI api, IServerPlayer recipient, string playerName, bool denied = false)
+        {
+            int timeLimit = serverConfig.OTTTimeout;
+
+            foreach (ottRequest request in requests)
+            {
+                if(request.recipient != recipient)
+                {
+                    continue;
+                }
+
+                if(request.requestTime > DateTime.UtcNow.AddSeconds(timeLimit))
+                {
+                    requests.Remove(request);
+                    continue;
+                }
+
+                if(request.requester.PlayerName != playerName)
+                {
+                    continue;
+                }
+
+                if (denied)
+                {
+                    requests.Remove(request);
+                    continue;
+                }
+
+                requests.Remove(request);
+                recipient.SendMessage(0, "Teleport accepted. Teleporting " + request.requester.PlayerName + " to you.", EnumChatType.CommandSuccess);
+
+                request.requester.Entity.TeleportTo(request.recipient.Entity.Pos.AsBlockPos);
+
+                // Basically List<T>.Add for arrays
+                OTTUsed = OTTUsed.Replace(new OTTUse(request.requester.PlayerUID));
+                serverConfig.Save();
+                return;
+            }
+
+            recipient.SendMessage(0, "No request found or ran out of time.", EnumChatType.CommandError);
+        }
+
+        internal void requestTeleport(ICoreServerAPI api, IServerPlayer requester, string requestName)
+        {
+            foreach (OTTUse ottUse in OTTUsed)
+            {
+                if(ottUse.playerUID == requester.PlayerUID)
+                {
+                    requester.SendMessage(0, "You have already used your one time teleport!", EnumChatType.Notification);
+                    return;
+                }
+            }
+
+            if (requestName == null || requestName == "")
+            {
+                requester.SendMessage(0, "Unknown player name given. Try /ott [name]", EnumChatType.Notification);
+                return;
+            }
+
+            IServerPlayer recipient = null;
+            foreach (IServerPlayer otherPlayer in api.Server.Players)
+            {
+                if (otherPlayer.PlayerName == requestName)
+                {
+                    recipient = otherPlayer;
+                    break;
+                }
+            }
+
+            if (recipient == null)
+            {
+                requester.SendMessage(0, "Player " + requestName + " not found.", EnumChatType.Notification);
+                return;
+            }
+
+            foreach (ottRequest request in requests)
+            {
+                if(request.requester.PlayerName != requester.PlayerName)
+                {
+                    continue;
+                }
+
+                if (DateTime.UtcNow > request.requestTime.AddSeconds(serverConfig.OTTTimeout))
+                {
+                    requests.Remove(request);
+                }
+                else
+                {
+                    requester.SendMessage(0, "Already requested a ott. Please wait " + (DateTime.UtcNow.AddSeconds(serverConfig.OTTTimeout) - request.requestTime).Seconds + " seconds.", EnumChatType.Notification);
+                }
+            }
+
+            requests.Insert(0, new ottRequest(requester, recipient));
+
+            requester.SendMessage(0, "Player " + requestName + " found, asking the player if they accept...", EnumChatType.Notification);
+            recipient.SendMessage(0, "Player " + requester.PlayerName + " is requesting to teleport to you, do you accept? Use '/ott accept' or '/ott deny'", EnumChatType.Notification);
+        }
+
+        internal void InitCmdOTT(ICoreServerAPI api)
+        {
+            api.RegisterCommand("ott", "Request-teleport to a player.", "[name] or [accept/deny] [playername]", (player, id, args) =>
+            {
+                if(args.Length == 0)
+                {
+                    player.SendMessage(0, "Invalid command, try /ott [name] or /ott [accept/deny] [playername]", EnumChatType.Notification);
+                    return;
+                }
+                string argument = args.PopWord();
+
+                if(argument.ToLower() == "accept" || argument.ToLower() == "deny")
+                {
+                    string playerName = args.PopWord();
+                    acceptOrDenyTeleport(api, player, playerName, argument.ToLower() == "deny");
+                    return;
+                }
+
+
+                requestTeleport(api, player, argument);
+            }, Privilege.root);
+
+
+            //    switch (cmd0)
+            //    {
+            //        case "remove":
+            //            string ipf = args.PopAll();
+            //            var tmpban = new IPBan(ipf, "", DateTime.Now);
+
+            //            if (tmpban.Valid)
+            //            {
+            //                IPBans = IPBans.Replace(tmpban);
+            //            }
+            //            else
+            //            {
+            //                player.SendMessage(0, "Invalid IP Format.", EnumChatType.Notification);
+            //            }
+
+            //            HandleIPBans(null);
+            //            break;
+            //        case "list":
+            //            foreach (var ban in IPBans)
+            //            {
+            //                player.SendMessage(0, ban.GetString(), EnumChatType.Notification);
+            //            }
+            //            break;
+            //        default:
+            //            double days = args.PopDouble(50.0).Value;
+            //            byte range = (byte)args.PopInt(4).Value;
+            //            string reason = args.PopAll();
+
+            //            if (cmd0 != null)
+            //            {
+            //                var toBan = api.World.AllPlayers.Where(p => p.PlayerName == cmd0);
+            //                foreach (var banning in toBan)
+            //                {
+            //                    IServerPlayer serverPlayer = banning as IServerPlayer;
+
+            //                    string ip = serverPlayer.IpAddress.Contains('[') ? serverPlayer.IpAddress.Split('[', ']', ':')[4] : serverPlayer.IpAddress;
+            //                    IPBans = IPBans.Replace(new IPBan(ip, reason, DateTime.Now.AddDays(days), range));
+
+            //                    //for players on same IP
+            //                    foreach (var player_ in api.World.AllPlayers)
+            //                    {
+            //                        HandleIPBans(player_ as IServerPlayer);
+            //                    }
+            //                }
+            //            }
+            //            serverConfig.Save();
+            //            break;
+            //    }
+
+            //}, "controlserver");
         }
 
         internal void InitCmdIPBan(ICoreServerAPI api)
@@ -269,7 +462,7 @@ namespace CivMods
 
         public void InitSnitchCommandsServer(ICoreServerAPI api)
         {
-            api.RegisterCommand("snitchinfo", "Get snitch info", "", GetSnitchInfo);
+            api.RegisterCommand("snitchinfo", "Get snitch info", "", GetSnitchInfo, Privilege.root);
 
             api.RegisterCommand("snitchroot", "Create and remove snitch block entities", "", (byPlayer, id, args) =>
             {
@@ -373,74 +566,77 @@ namespace CivMods
         {
             bool legacy = args.PopBool() ?? false;
             BlockPos pos = byPlayer.CurrentBlockSelection?.Position;
-            if (api.World.Claims.TryAccess(byPlayer, pos, EnumBlockAccessFlags.Use))
+            if (!api.World.Claims.TryAccess(byPlayer, pos, EnumBlockAccessFlags.Use))
             {
-                BlockEntitySnitch bes = (pos.BlockEntity(api.World) as BlockEntitySnitch);
-                if (TryAccessSnitch(bes, byPlayer) && !byPlayer.Entity.Controls.Sneak)
+                return;
+            }
+
+            BlockEntitySnitch bes = (pos.BlockEntity(api.World) as BlockEntitySnitch);
+            if (TryAccessSnitch(bes, byPlayer) && !byPlayer.Entity.Controls.Sneak)
+            {
+                StringBuilder breakins = new StringBuilder("Last 5 breakins:").AppendLine();
+
+                if (legacy)
                 {
-                    StringBuilder breakins = new StringBuilder("Last 5 breakins:").AppendLine();
-
-                    if (legacy)
+                    for (int i = bes.legacyBreakins.Count - 5; i < bes.legacyBreakins.Count; i++)
                     {
-                        for (int i = bes.legacyBreakins.Count - 5; i < bes.legacyBreakins.Count; i++)
-                        {
-                            if (bes.legacyBreakins.Count == 0) break;
-                            if (i < 0) continue;
+                        if (bes.legacyBreakins.Count == 0) break;
+                        if (i < 0) continue;
 
-                            breakins.AppendLine(bes.legacyBreakins[i]);
-                        }
-                    }
-                    else
-                    {
-                        for (int i = bes.Infractions.Count - 5; i < bes.Infractions.Count; i++)
-                        {
-                            if (bes.Infractions.Count == 0) break;
-                            if (i < 0) continue;
-                            breakins.AppendLine(bes.Infractions[i].GetInfString(api.World));
-                        }
-                    }
-
-                    sapi.SendMessage(byPlayer, 0, breakins.ToString(), EnumChatType.OwnMessage);
-                }
-                else if (api.World.GetBlockEntitiesAround(pos, new Vec2i(11, 11)).Any(be => TryAccessSnitch(be as BlockEntitySnitch, byPlayer)))
-                {
-                    foreach (var val in api.World.GetBlockEntitiesAround(pos, new Vec2i(11, 11)))
-                    {
-                        var be = (val as BlockEntitySnitch);
-                        if (val is BlockEntitySnitch && be != null && be.OwnerUID == byPlayer.PlayerUID && !byPlayer.Entity.Controls.Sneak)
-                        {
-                            StringBuilder breakins = new StringBuilder("Last 5 breakins:").AppendLine();
-
-                            if (legacy)
-                            {
-                                for (int i = be.legacyBreakins.Count - 5; i < be.legacyBreakins.Count; i++)
-                                {
-                                    if (be.legacyBreakins.Count == 0) break;
-                                    if (i < 0) continue;
-
-                                    breakins.AppendLine(bes.legacyBreakins[i]);
-                                }
-                            }
-                            else
-                            {
-                                for (int i = be.Infractions.Count - 5; i < be.Infractions.Count; i++)
-                                {
-                                    if (be.Infractions.Count == 0) break;
-                                    if (i < 0) continue;
-
-                                    breakins.AppendLine(bes.Infractions[i].GetInfString(api.World));
-                                }
-                            }
-
-                            sapi.SendMessage(byPlayer, 0, breakins.ToString(), EnumChatType.OwnMessage);
-                            break;
-                        }
+                        breakins.AppendLine(bes.legacyBreakins[i]);
                     }
                 }
                 else
                 {
-                    sapi.SendMessage(byPlayer, 0, "Must look at or be in radius of a snitch, or you don't own this one!", EnumChatType.OwnMessage);
+                    for (int i = bes.Infractions.Count - 5; i < bes.Infractions.Count; i++)
+                    {
+                        if (bes.Infractions.Count == 0) break;
+                        if (i < 0) continue;
+
+                        breakins.AppendLine(bes.Infractions[i].GetInfString(api.World));
+                    }
                 }
+
+                sapi.SendMessage(byPlayer, 0, breakins.ToString(), EnumChatType.OwnMessage);
+            }
+            else if (api.World.GetBlockEntitiesAround(pos, new Vec2i(11, 11)).Any(be => TryAccessSnitch(be as BlockEntitySnitch, byPlayer)))
+            {
+                foreach (var val in api.World.GetBlockEntitiesAround(pos, new Vec2i(11, 11)))
+                {
+                    var be = (val as BlockEntitySnitch);
+                    if (val is BlockEntitySnitch && be != null && be.OwnerUID == byPlayer.PlayerUID && !byPlayer.Entity.Controls.Sneak)
+                    {
+                        StringBuilder breakins = new StringBuilder("Last 5 breakins:").AppendLine();
+
+                        if (legacy)
+                        {
+                            for (int i = be.legacyBreakins.Count - 5; i < be.legacyBreakins.Count; i++)
+                            {
+                                if (be.legacyBreakins.Count == 0) break;
+                                if (i < 0) continue;
+
+                                breakins.AppendLine(bes.legacyBreakins[i]);
+                            }
+                        }
+                        else
+                        {
+                            for (int i = be.Infractions.Count - 5; i < be.Infractions.Count; i++)
+                            {
+                                if (be.Infractions.Count == 0) break;
+                                if (i < 0) continue;
+
+                                breakins.AppendLine(bes.Infractions[i].GetInfString(api.World));
+                            }
+                        }
+
+                        sapi.SendMessage(byPlayer, 0, breakins.ToString(), EnumChatType.OwnMessage);
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                sapi.SendMessage(byPlayer, 0, "Must look at or be in radius of a snitch, or you don't own this one!", EnumChatType.OwnMessage);
             }
         }
 
@@ -482,7 +678,7 @@ namespace CivMods
                 BlockPos pos = api?.World?.Player?.CurrentBlockSelection?.Position;
                 if (pos != null)
                 {
-                    var snitch = (pos.BlockEntity(api) as BlockEntitySnitch);
+                    var snitch = api.World.BlockAccessor.GetBlockEntity(pos) as BlockEntitySnitch;
 
                     if (snitch == null)
                     {
@@ -502,6 +698,8 @@ namespace CivMods
 
                     builder.AppendLine("Latest Breakins:");
 
+                    builder.AppendLine(snitch.Infractions.Count.ToString());
+
                     foreach (var val in snitch.Infractions)
                     {
                         builder.AppendLine(val.GetInfString(api.World));
@@ -518,11 +716,11 @@ namespace CivMods
             });
         }
 
-        private void AirBarInitClient(ICoreClientAPI api)
-        {
-            HudElementAirBar airBar = new HudElementAirBar(api);
-            airBar.TryOpen();
-        }
+        //private void AirBarInitClient(ICoreClientAPI api)
+        //{
+        //    HudElementAirBar airBar = new HudElementAirBar(api);
+        //    airBar.TryOpen();
+        //}
 
         private void UseBlockEvent(IServerPlayer byPlayer, BlockSelection blockSel)
         {

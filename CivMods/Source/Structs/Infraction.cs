@@ -43,6 +43,8 @@ namespace CivMods
             this.timestamp = timestamp;
             this.thingId = thingId;
             this.successful = successful;
+
+            
         }
 
         public byte[] ToBytes()

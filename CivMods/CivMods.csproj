@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+	<Target Name="Package" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
+		<ZipDirectory DestinationFile="CivMods.zip" SourceDirectory="$(TargetDir)" Overwrite="true" />
+	</Target>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
@@ -106,10 +109,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\BlockBehaviors\BlockBehaviorDelete.cs" />
+    <Compile Include="Source\Systems\Patches\PatchBlockRotor.cs" />
     <Compile Include="Source\BlockBehaviors\BlockBehaviorUnbreakableByTier.cs" />
     <Compile Include="Source\Blocks\BlockAcid.cs" />
     <Compile Include="Source\BlockEntities\BlockEntityAcid.cs" />
+    <Compile Include="Source\Structs\OTTUse.cs" />
     <Compile Include="Source\Structs\IPBan.cs" />
+    <Compile Include="Source\Structs\Infraction.cs" />
+    <Compile Include="Source\Structs\byte4.cs" />
+    <Compile Include="Source\Structs\int3.cs" />
+    <Compile Include="Source\Enums\EnumInfraction.cs" />
+    <Compile Include="Source\Enums\EnumSnitchMode.cs" />
     <Compile Include="Source\Items\ItemHedgeClippers.cs" />
     <Compile Include="Source\Systems\CivModsServerConfig.cs" />
     <Compile Include="Source\Blocks\BlockStackableUnderwater.cs" />
@@ -136,6 +147,50 @@
     <Compile Include="Source\Utility\HackMan.cs" />
     <Compile Include="Source\Utility\ThreadStuff.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="mods\CivMods\assets\civmods\textures\block\apcsnitch.png" />
+    <Content Include="mods\CivMods\assets\civmods\textures\block\sawtexfix.png" />
+    <Content Include="mods\CivMods\bunnyviking_license.txt" />
+    <Content Include="mods\CivMods\CivMods.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mods\CivMods\assets\civmods\blocktypes\acid.json" />
+    <None Include="mods\CivMods\assets\civmods\blocktypes\fruittreefoliageplaced.json" />
+    <None Include="mods\CivMods\assets\civmods\blocktypes\snitch.json" />
+    <None Include="mods\CivMods\assets\civmods\itemtypes\blueprint.json" />
+    <None Include="mods\CivMods\assets\civmods\itemtypes\resources\vitriol.json" />
+    <None Include="mods\CivMods\assets\civmods\itemtypes\toolhead\hedgeclippershead.json" />
+    <None Include="mods\CivMods\assets\civmods\itemtypes\tool\hedgeclippers.json" />
+    <None Include="mods\CivMods\assets\civmods\itemtypes\tool\plumbandsquarewithtorch.json" />
+    <None Include="mods\CivMods\assets\civmods\lang\en.json" />
+    <None Include="mods\CivMods\assets\civmods\patches\breathable.json" />
+    <None Include="mods\CivMods\assets\civmods\patches\bushmeatmeals.json" />
+    <None Include="mods\CivMods\assets\civmods\patches\cellaricefix.json" />
+    <None Include="mods\CivMods\assets\civmods\patches\hammerfix.json" />
+    <None Include="mods\CivMods\assets\civmods\patches\mortarreinforcement.json" />
+    <None Include="mods\CivMods\assets\civmods\patches\plugfix.json" />
+    <None Include="mods\CivMods\assets\civmods\patches\plumbsquareflags.json" />
+    <None Include="mods\CivMods\assets\civmods\patches\reinforcableroofs.json" />
+    <None Include="mods\CivMods\assets\civmods\patches\requiredmining.json" />
+    <None Include="mods\CivMods\assets\civmods\patches\seaweedstackable.json" />
+    <None Include="mods\CivMods\assets\civmods\patches\suffocation.json" />
+    <None Include="mods\CivMods\assets\civmods\patches\workbenchfix.json" />
+    <None Include="mods\CivMods\assets\civmods\patches\deleteseaweed.json" />
+    <None Include="mods\CivMods\assets\civmods\recipes\barrel\vitriol.json" />
+    <None Include="mods\CivMods\assets\civmods\recipes\grid\acidcontainer.json" />
+    <None Include="mods\CivMods\assets\civmods\recipes\grid\plumbandsquarewithtorch.json" />
+    <None Include="mods\CivMods\assets\civmods\recipes\grid\snitch.json" />
+    <None Include="mods\CivMods\assets\civmods\recipes\grid\tool\hedgeclippers.json" />
+    <None Include="mods\CivMods\assets\civmods\recipes\smithing\hedgeclippers.json" />
+    <None Include="mods\CivMods\assets\civmods\shapes\block\acidblock.json" />
+    <None Include="mods\CivMods\assets\civmods\shapes\block\apcsnitch.json" />
+    <None Include="mods\CivMods\assets\civmods\shapes\block\quarry\plugandfeather-one.json" />
+    <None Include="mods\CivMods\assets\civmods\shapes\block\quarry\plugandfeather-three.json" />
+    <None Include="mods\CivMods\assets\civmods\shapes\block\quarry\plugandfeather-two.json" />
+    <None Include="mods\CivMods\assets\civmods\shapes\item\tool\hedgeclippers.json" />
+    <None Include="mods\CivMods\assets\civmods\shapes\item\tool\plumbandsquarewithtorch.json" />
+    <None Include="mods\CivMods\assets\game\lang\en.json" />
+    <None Include="mods\CivMods\modinfo.json" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

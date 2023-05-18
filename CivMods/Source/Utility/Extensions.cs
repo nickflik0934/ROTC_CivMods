@@ -261,7 +261,7 @@ namespace CivMods
         {
             foreach (var val in CacheDictKeys)
             {
-                util.InitializeAnimator(val, rot);
+                util.InitializeAnimator(val, null, null, rot);
             }
         }
 

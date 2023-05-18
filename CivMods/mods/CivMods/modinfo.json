@@ -1,8 +1,13 @@
 {
 	"type": "code",
 	"name": "CivMods",
-	"modid": "civmods",
+	"modid": "civmodstwo",
 	"description" : "",
-	"authors": ["Novocain"],
-	"version": "1.1.48"
+	"authors": [
+		"Novocain",
+		"SpearAndFang",
+		"KingOfTheMochas",
+		"nickflik0934"
+	],
+	"version": "1.2.1"
 }

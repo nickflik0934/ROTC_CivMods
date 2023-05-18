@@ -33,7 +33,7 @@ namespace CivMods
                 {
                     entityChisel.FromTreeAttributes(blueprintTree, api.World);
                 }
-                if (api.Side.IsClient()) entityChisel.RegenMesh();
+                if (api.Side.IsClient()) entityChisel.RegenMesh(api as ICoreClientAPI);
             }
             base.OnHeldInteractStart(slot, byEntity, blockSel, entitySel, firstEvent, ref handling);
         }

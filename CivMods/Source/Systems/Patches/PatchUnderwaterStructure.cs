@@ -73,7 +73,7 @@ namespace CivMods
 			{
 				return false;
 			}
-			if (__instance.isStructureAt(pos, worldForCollectibleResolve))
+			if (__instance.WouldOverlapAt(pos, blockSchematicStructure, worldForCollectibleResolve))
 			{
 				return false;
 			}

@@ -1,5 +1,6 @@
 ﻿using System;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
@@ -13,37 +14,39 @@ namespace CivMods
 		public override void OnLoaded(ICoreAPI api)
         {
             base.OnLoaded(api);
-			genProps = Attributes["UnderWaterGenProps"].AsObject<UnderWaterGenProps>();
+            genProps = Attributes["UnderWaterGenProps"].AsObject<UnderWaterGenProps>();
 		}
 
         public override bool TryPlaceBlockForWorldGen(IBlockAccessor blockAccessor, BlockPos pos, BlockFacing onBlockFace, LCGRandom worldGenRand)
         {
-			BlockPos belowPos = pos.DownCopy();
+            //api.World.BlockAccessor.SetBlock(0, pos);
 
-			Block block = blockAccessor.GetBlock(belowPos);
-			if (block.LiquidCode != genProps.LiquidCode) return false;
+            BlockPos belowPos = pos.DownCopy();
 
-			int depth = genProps.MinDepth;
-			while (depth < genProps.MaxDepth)
-			{
-				belowPos.Down();
-				block = blockAccessor.GetBlock(belowPos);
+            Block block = blockAccessor.GetBlock(belowPos);
+            if (block.LiquidCode != genProps.LiquidCode) return false;
 
-				if (block.Fertility > 0)
-				{
-					belowPos.Up();
-					PlaceStackable(blockAccessor, belowPos, depth);
-					return true;
-				}
-				else
-				{
-					if (!block.IsLiquid()) return false;
-				}
+            int depth = genProps.MinDepth;
+            while (depth < genProps.MaxDepth)
+            {
+                belowPos.Down();
+                block = blockAccessor.GetBlock(belowPos);
 
-				depth++;
-			}
+                if (block.Fertility > 0)
+                {
+                    belowPos.Up();
+                    PlaceStackable(blockAccessor, belowPos, depth);
+                    return true;
+                }
+                else
+                {
+                    if (!block.IsLiquid()) return false;
+                }
 
-			return false;
+                depth++;
+            }
+
+            return false;
 		}
 
 		private void PlaceStackable(IBlockAccessor blockAccessor, BlockPos pos, int depth)
