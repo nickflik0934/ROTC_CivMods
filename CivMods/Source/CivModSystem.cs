@@ -201,13 +201,13 @@ namespace CivMods
                     continue;
                 }
 
-                if(request.requestTime > DateTime.UtcNow.AddSeconds(timeLimit))
+                if (request.requestTime > DateTime.UtcNow.AddSeconds(timeLimit))
                 {
                     requests.Remove(request);
                     continue;
                 }
 
-                if(request.requester.PlayerName != playerName)
+                if (request.requester.PlayerName != playerName)
                 {
                     continue;
                 }
@@ -279,22 +279,23 @@ namespace CivMods
                 else
                 {
                     requester.SendMessage(0, "Already requested a ott. Please wait " + (DateTime.UtcNow.AddSeconds(serverConfig.OTTTimeout) - request.requestTime).Seconds + " seconds.", EnumChatType.Notification);
+                    return;
                 }
             }
 
             requests.Insert(0, new ottRequest(requester, recipient));
 
             requester.SendMessage(0, "Player " + requestName + " found, asking the player if they accept...", EnumChatType.Notification);
-            recipient.SendMessage(0, "Player " + requester.PlayerName + " is requesting to teleport to you, do you accept? Use '/ott accept' or '/ott deny'", EnumChatType.Notification);
+            recipient.SendMessage(0, "Player " + requester.PlayerName + " is asking to teleport to you, do you accept? Use '/ott accept " + requester.PlayerName + "' or '/ott deny " + requester.PlayerName + "'", EnumChatType.Notification);
         }
 
         internal void InitCmdOTT(ICoreServerAPI api)
         {
-            api.RegisterCommand("ott", "Request-teleport to a player.", "[name] or [accept/deny] [playername]", (player, id, args) =>
+            api.RegisterCommand("ott", "Request-teleport to a player.", "[name] or [accept|deny] [playername]", (player, id, args) =>
             {
                 if(args.Length == 0)
                 {
-                    player.SendMessage(0, "Invalid command, try /ott [name] or /ott [accept/deny] [playername]", EnumChatType.Notification);
+                    player.SendMessage(0, "Invalid command, try /ott [name] or /ott [accept|deny] [playername]", EnumChatType.Notification);
                     return;
                 }
                 string argument = args.PopWord();
@@ -302,6 +303,10 @@ namespace CivMods
                 if(argument.ToLower() == "accept" || argument.ToLower() == "deny")
                 {
                     string playerName = args.PopWord();
+                    if(playerName == "" || playerName == null)
+                    {
+                        player.SendMessage(0, "Specify the player. Use /ott [accept|deny] [playername]", EnumChatType.CommandError);
+                    }
                     acceptOrDenyTeleport(api, player, playerName, argument.ToLower() == "deny");
                     return;
                 }

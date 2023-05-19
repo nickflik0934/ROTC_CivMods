@@ -1,13 +1,13 @@
 {
 	"type": "code",
 	"name": "CivMods",
-	"modid": "civmodstwo",
-	"description" : "",
+	"modid": "rotc_civmods",
+	"description" : "CivMods thats being continued by nickflik0934.",
 	"authors": [
 		"Novocain",
 		"SpearAndFang",
 		"KingOfTheMochas",
 		"nickflik0934"
 	],
-	"version": "1.2.1"
+	"version": "1.0.0"
 }
