@@ -9,20 +9,8 @@ namespace CivMods
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     internal struct OTTUse
     {
-        private string uid;
-
         [JsonProperty]
-        internal string playerUID
-        {
-            get
-            {
-                return uid;
-            }
-            set
-            {
-                uid = value;
-            }
-        }
+        public string uid;
 
         public OTTUse(string uid)
         {

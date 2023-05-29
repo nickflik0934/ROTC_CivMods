@@ -106,7 +106,7 @@ namespace CivMods
         private ICoreClientAPI capi;
 
         private IPBan[] IPBans { get => serverConfig.IPBans; set => serverConfig.IPBans = value; }
-        private OTTUse[] OTTUsed { get => serverConfig.OTTUsed; set => serverConfig.OTTUsed = value; }
+        private OTTUse[] OTTUsed { get => serverConfig.getOTTUsed(); }
 
         public static CivModsServerConfig serverConfig;
 
@@ -223,9 +223,7 @@ namespace CivMods
 
                 request.requester.Entity.TeleportTo(request.recipient.Entity.Pos.AsBlockPos);
 
-                // Basically List<T>.Add for arrays
-                OTTUsed = OTTUsed.Replace(new OTTUse(request.requester.PlayerUID));
-                serverConfig.Save();
+                serverConfig.addOTT(new OTTUse(request.requester.PlayerUID));
                 return;
             }
 
@@ -236,7 +234,7 @@ namespace CivMods
         {
             foreach (OTTUse ottUse in OTTUsed)
             {
-                if(ottUse.playerUID == requester.PlayerUID)
+                if(ottUse.uid == requester.PlayerUID)
                 {
                     requester.SendMessage(0, "You have already used your one time teleport!", EnumChatType.Notification);
                     return;
@@ -313,7 +311,7 @@ namespace CivMods
 
 
                 requestTeleport(api, player, argument);
-            }, Privilege.root);
+            }, Privilege.chat);
 
 
             //    switch (cmd0)
@@ -467,7 +465,7 @@ namespace CivMods
 
         public void InitSnitchCommandsServer(ICoreServerAPI api)
         {
-            api.RegisterCommand("snitchinfo", "Get snitch info", "", GetSnitchInfo, Privilege.root);
+            api.RegisterCommand("snitchinfo", "Get snitch info", "", GetSnitchInfo, Privilege.chat);
 
             api.RegisterCommand("snitchroot", "Create and remove snitch block entities", "", (byPlayer, id, args) =>
             {

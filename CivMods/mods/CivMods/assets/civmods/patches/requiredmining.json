@@ -311,31 +311,20 @@
                 "MiningTier": 1
             }
         },
-        "file": "game:blocktypes/wood/painting.json"
-    },
-    {
-        "op": "add",
-        "path": "/behaviors/0",
-        "value": {
-            "name": "UnbreakableByTier",
-            "properties": {
-                "MiningTier": 1
-            }
-        },
         "file": "game:blocktypes/wood/pan.json"
     },
     {
-        "op": "add",
-        "path": "/behaviors",
-        "value": [
-            {
-                "name": "UnbreakableByTier",
-                "properties": {
-                    "MiningTier": 1
-                }
-            }
-        ],
-        "file": "game:blocktypes/wood/rails.json"
+      "op": "add",
+      "path": "/behaviors",
+      "value": [
+        {
+          "name": "UnbreakableByTier",
+          "properties": {
+            "MiningTier": 1
+          }
+        }
+      ],
+      "file": "game:blocktypes/wood/rails.json"
     },
     {
         "op": "add",
